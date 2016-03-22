@@ -9,8 +9,8 @@ class AnimatedScatter(object):
         self.stream = self.data_stream()
 
         # Setup the figure and axes...
-        self.fig, self.ax = plt.subplots()
-        # Then setup FuncAnimation.
+        self.fig, self.ax = plt.subplots() # what are these spicifically?
+        # Then setup FuncAnimation. check out http://matplotlib.org/api/animation_api.html
         self.ani = animation.FuncAnimation(self.fig, self.update, interval=5,
                                            init_func=self.setup_plot, blit=True)
 
@@ -24,19 +24,34 @@ class AnimatedScatter(object):
         # Note that it expects a sequence of artists, thus the trailing comma.
         return self.scat,
 
-    def data_stream(self):
+    def data_stream(self): # assume first list is mario, rest are toad.
         """Generate a random walk (brownian motion). Data is scaled to produce
-        a soft "flickering" effect."""
+        a soft "flickering" effect.
+
+        s: size
+        c: color
+        xy: list of list representing location of the points.
+
+        """
         data = np.random.random((4, self.numpoints))
-        print data
         xy = data[:2, :]
+        print "xy:",xy
         s, c = data[2:, :]
+        print "s:",s
+        print "c:",c
+
         xy -= 0.5
         xy *= 10
         while True:
-            xy += 0.03 * (np.random.random((2, self.numpoints)) - 0.5)
+            # toads
+            xy += 0.03 * (np.random.random((2, self.numpoints)) - 0.5) # this controls for each point, where it is moving in the next frame.
+
+            #mario
+            xy[0][0] += .03
+            xy[0][1] += .03
             s += 0.05 * (np.random.random(self.numpoints) - 0.5)
             c += 0.02 * (np.random.random(self.numpoints) - 0.5)
+
             yield data
 
     def update(self, i):
