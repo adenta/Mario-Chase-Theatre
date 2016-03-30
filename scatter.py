@@ -2,9 +2,77 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
 
+def gridToDict(grid):
+    players = {}
+    coords = zip(*grid)
+
+    mario = {}
+    mario['pos']=coords[0]
+
+    toads = []
+    for tup in coords[0:]:
+        toad = {}
+        toad['pos']=tup
+        toads.append(toad)
+
+    players['mario']=mario
+    players['toads']=toads
+
+    return players
+
+
+
+def dictToGrid(players):
+    tups = []
+    mario = players['mario']['pos']
+    tups.append(mario)
+    for toad in players['toads']:
+        tups.append(toad['pos'])
+
+    grid = zip(*tups)
+
+
+    return grid
+
+# takes a dict of all players (mario plus four toads) and returns mario's new coordinates
+def moveMario(players):
+
+    mario = players['mario']
+    current = list(mario['pos'])
+    dxy = np.random.random(2) * .2
+    dxy -= .05
+
+    newPosition = [x + y for x, y in zip(current,dxy)]
+
+    players['mario']['pos'] = tuple(newPosition)
+
+    return players['mario']
+
+#takes a toad, returns a new toad after it has been moved.
+def moveToad(toad):
+
+    return toad
+
+def processFrame(grid):
+    players = gridToDict(grid)
+
+    mario = players['mario']
+    toads = players['toads']
+
+    players['mario'] = moveMario(players)
+
+
+    movedToads = []
+    for toad in players['toads']:
+        movedToads.append(moveToad(toad))
+    players['toads'] =  movedToads[:-1] # this is a hack. Somehow we add a new toad each round.
+    grid = dictToGrid(players)
+
+    return grid
+
 class AnimatedScatter(object):
     """An animated scatter plot using matplotlib.animations.FuncAnimation."""
-    def __init__(self, numpoints=5):
+    def __init__(self, numpoints=2):
         self.numpoints = numpoints
         self.stream = self.data_stream()
 
@@ -43,14 +111,18 @@ class AnimatedScatter(object):
         xy -= 0.5
         xy *= 10
         while True:
+            """
             # toads
-            xy += 0.03 * (np.random.random((2, self.numpoints)) - 0.5) # this controls for each point, where it is moving in the next frame.
+            xy[1:] += 0.03 * (np.random.random((2, self.numpoints)) - 0.5) # this controls for each point, where it is moving in the next frame.
 
             #mario
             xy[0][0] += .03
-            xy[0][1] += .03
+            xy[0][1] += -.23
             s += 0.05 * (np.random.random(self.numpoints) - 0.5)
-            c += 0.02 * (np.random.random(self.numpoints) - 0.5)
+            c += 0.02 * (np.random.random(self.numpoints) - 0.5)"""
+
+            data[:2, :] = processFrame(xy)
+
 
             yield data
 
