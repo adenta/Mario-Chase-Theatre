@@ -4,16 +4,15 @@ import numpy as np
 
 def gridToDict(grid):
     players = {}
-    coords = zip(*grid)
 
     mario = {}
-    mario['pos']=coords[0]
+    mario['pos']=(grid[0][0],grid[0][1])
 
     toads = []
-    for tup in coords[1:]:
-        toad = {}
-        toad['pos']=tup
-        toads.append(toad)
+    toads.append({'pos':(grid[0][2],grid[0][3])})
+    toads.append({'pos':(grid[0][4],grid[1][0])})
+    toads.append({'pos':(grid[1][1],grid[1][2])})
+    toads.append({'pos':(grid[1][3],grid[1][4])})
 
     players['mario']=mario
     players['toads']=toads
@@ -70,6 +69,25 @@ def processFrame(grid):
 
     return grid
 
+def transposeGrid(grid):
+    newGrid = np.zeros((2,5))
+    newGrid[0][0] = grid[0][0]
+    newGrid[1][0] = grid[0][1]
+
+    newGrid[0][1] = grid[0][2]
+    newGrid[1][1] = grid[0][3]
+
+    newGrid[0][2] = grid[0][4]
+    newGrid[1][2] = grid[1][0]
+
+    newGrid[0][3] = grid[1][1]
+    newGrid[1][3] = grid[1][2]
+
+    newGrid[0][4] = grid[1][3]
+    newGrid[1][4] = grid[1][4]
+
+    return newGrid
+
 class AnimatedScatter(object):
     """An animated scatter plot using matplotlib.animations.FuncAnimation."""
     def __init__(self, numpoints=5):
@@ -101,7 +119,7 @@ class AnimatedScatter(object):
         xy: list of list representing location of the points.
 
         """
-        data = np.array(2,5) # found problem
+        data = np.random.random((4, self.numpoints)) # found problem
         xy = data[:2, :]
         print "xy:",xy
         s, c = data[2:, :]
@@ -119,7 +137,7 @@ class AnimatedScatter(object):
             s += 0.05 * (np.random.random(self.numpoints) - 0.5)
             c += 0.02 * (np.random.random(self.numpoints) - 0.5)"""
 
-            data[:2, :] = processFrame(data[:2, :])
+            data[:2, :] = processFrame(transposeGrid(data[:2, :]))
 
 
             yield data
