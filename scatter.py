@@ -90,7 +90,7 @@ def transposeGrid(grid):
 
 class AnimatedScatter(object):
     """An animated scatter plot using matplotlib.animations.FuncAnimation."""
-    def __init__(self, numpoints=5):
+    def __init__(self, numpoints=2):
         self.numpoints = numpoints
         self.stream = self.data_stream()
 
@@ -139,20 +139,14 @@ class AnimatedScatter(object):
 
             grid = data[:2, :]
 
-            grid[0][0] += .1
-            grid[0][1] += .1
+            mario = grid[0]
+            toad = grid[1]
 
-            grid[1][2] += .1
-            grid[1][3] += .1
 
-            grid[1][4] += .1
-            grid[1][0] += .1
+            grid[0] = moveMario(mario)
+            grid[1] = moveToad(toad)
+            
 
-            grid[1][1] += .1
-            grid[1][2] += .1
-
-            grid[1][3] += .1
-            grid[1][4] += .1
 
 
 
