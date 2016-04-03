@@ -137,7 +137,24 @@ class AnimatedScatter(object):
             s += 0.05 * (np.random.random(self.numpoints) - 0.5)
             c += 0.02 * (np.random.random(self.numpoints) - 0.5)"""
 
-            data[:2, :] = processFrame(transposeGrid(data[:2, :]))
+            grid = data[:2, :]
+
+            grid[0][0] += .1
+            grid[0][1] += .1
+
+            grid[1][2] += .1
+            grid[1][3] += .1
+
+            grid[1][4] += .1
+            grid[1][0] += .1
+
+            grid[1][1] += .1
+            grid[1][2] += .1
+
+            grid[1][3] += .1
+            grid[1][4] += .1
+
+
 
 
             yield data
