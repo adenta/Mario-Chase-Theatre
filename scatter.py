@@ -10,7 +10,7 @@ def gridToDict(grid):
     mario['pos']=coords[0]
 
     toads = []
-    for tup in coords[0:]:
+    for tup in coords[1:]:
         toad = {}
         toad['pos']=tup
         toads.append(toad)
@@ -32,7 +32,7 @@ def dictToGrid(players):
     grid = zip(*tups)
 
 
-    return grid
+    return map(list,grid)
 
 # takes a dict of all players (mario plus four toads) and returns mario's new coordinates
 def moveMario(players):
@@ -65,14 +65,14 @@ def processFrame(grid):
     movedToads = []
     for toad in players['toads']:
         movedToads.append(moveToad(toad))
-    players['toads'] =  movedToads[:-1] # this is a hack. Somehow we add a new toad each round.
+    players['toads'] =  movedToads
     grid = dictToGrid(players)
 
     return grid
 
 class AnimatedScatter(object):
     """An animated scatter plot using matplotlib.animations.FuncAnimation."""
-    def __init__(self, numpoints=2):
+    def __init__(self, numpoints=5):
         self.numpoints = numpoints
         self.stream = self.data_stream()
 
@@ -101,7 +101,7 @@ class AnimatedScatter(object):
         xy: list of list representing location of the points.
 
         """
-        data = np.random.random((4, self.numpoints))
+        data = np.array(2,5) # found problem
         xy = data[:2, :]
         print "xy:",xy
         s, c = data[2:, :]
@@ -111,17 +111,15 @@ class AnimatedScatter(object):
         xy -= 0.5
         xy *= 10
         while True:
-            """
-            # toads
-            xy[1:] += 0.03 * (np.random.random((2, self.numpoints)) - 0.5) # this controls for each point, where it is moving in the next frame.
 
+            """print data
             #mario
             xy[0][0] += .03
             xy[0][1] += -.23
             s += 0.05 * (np.random.random(self.numpoints) - 0.5)
             c += 0.02 * (np.random.random(self.numpoints) - 0.5)"""
 
-            data[:2, :] = processFrame(xy)
+            data[:2, :] = processFrame(data[:2, :])
 
 
             yield data
