@@ -16,5 +16,5 @@ def drawCircle(circle):
                 st+= "##"
         print st
 
-
+print buildCircle(5)
 drawCircle(buildCircle(15))
