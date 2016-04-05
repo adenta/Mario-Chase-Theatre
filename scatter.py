@@ -144,8 +144,8 @@ class AnimatedScatter(object):
 
 
             grid[0] = moveMario(mario)
-            grid[1] = moveToad(toad)
-            
+            grid[1] = moveToad(distanceToMario)
+
 
 
 
