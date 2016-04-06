@@ -24,3 +24,4 @@
  - collisions and obsticles: andrew will add these to the model.
  - modify toad ai to account for walls. Andrew will do this.
  
+**All tasks need to be complete by next monday. **
