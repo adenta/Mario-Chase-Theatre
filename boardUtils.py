@@ -13,9 +13,9 @@ def drawCircle(circle):
         st = ""
         for col in row:
             if col and random.randint(0,100)>5 :
-                st+= "  "
+                st+= " "
             else:
-                st+= "##"
+                st+= "#"
         print st
 
 def buildBoard(n):
