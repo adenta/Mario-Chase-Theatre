@@ -15,7 +15,7 @@ nextToadStep = {
 
 }
 
-BOARDSIZE = 16
+BOARDSIZE = 14
 board = boardUtils.buildBoard(BOARDSIZE)
 toadCount = 4
 steps = 0
@@ -36,15 +36,20 @@ def makeToad(i):
 
 
 
-
-mario = [choice(range(BOARDSIZE)),choice(range(BOARDSIZE))]
+mario = [0,0]
+while True:
+    mario = [choice(range(BOARDSIZE)),choice(range(BOARDSIZE))]
+    if(board[mario[0]][mario[1]] is not boardUtils.wall):
+        break
 toads = [makeToad(i) for i in range(toadCount)]
 
 def turn():
     board[mario[0]][mario[1]]=" "
-    mario[0] += choice(marioMoves)
-    mario[1] += choice(marioMoves)
-
+    dx = choice(marioMoves)
+    dy = choice(marioMoves)
+    if not( board[mario[0] + dx][ mario[1] + dy]==boardUtils.wall):
+        mario[0] += dx
+        mario[1] += dy
     board[mario[0]][mario[1]]="M"
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
@@ -55,7 +60,7 @@ def turn():
         toadMove = nextToadStep[toad['direction']]
 
         board[toad['x']][toad['y']]=" "
-        if not( board[toad['x'] + toadMove[0]][ toad['y'] + toadMove[1]]=="X"):
+        if not( board[toad['x'] + toadMove[0]][ toad['y'] + toadMove[1]]==boardUtils.wall):
             toad['x'] += toadMove[0]
             toad['y'] += toadMove[1]
 
@@ -77,7 +82,7 @@ def checkCapture():
 
 print "mario is at",mario
 while True:
-    sleep(.1)
+    sleep(.07)
     turn()
     steps += 1
 

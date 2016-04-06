@@ -3,6 +3,7 @@ import numpy as np
 
 wall = "#"
 ground = " "
+spacer = "."
 def buildCircle(r):
     y,x = np.ogrid[-r: r+1, -r: r+1]
     mask = x**2+y**2 <= r**2-1
@@ -31,5 +32,5 @@ def drawBoard(board):
     for row in board:
         st = ""
         for cell in row:
-            st += cell + cell
+            st += spacer + cell
         print st
