@@ -1,6 +1,8 @@
 import io,math,random
 import numpy as np
 
+wall = "#"
+ground = " "
 def buildCircle(r):
     y,x = np.ogrid[-r: r+1, -r: r+1]
     mask = x**2+y**2 <= r**2-1
@@ -16,5 +18,18 @@ def drawCircle(circle):
                 st+= "##"
         print st
 
-print buildCircle(5)
-drawCircle(buildCircle(15))
+def buildBoard(n):
+    circle = buildCircle(n);
+    board = []
+
+    for row in circle:
+        board.append([ground if cell else wall for cell in row])
+
+    return board
+
+def drawBoard(board):
+    for row in board:
+        st = ""
+        for cell in row:
+            st += cell + cell
+        print st
