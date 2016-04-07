@@ -2,14 +2,10 @@ import math, boardUtils, io
 from random import choice
 from time import sleep
 
-inputFlag = False
+inputFlag = True
 
-if not inputFlag:
+if inputFlag:
 
-    BOARDSIZE = 14
-    board = boardUtils.buildBoard(BOARDSIZE)
-
-else:
     while True:
         userBoard = raw_input("What board do you want to use?")
         try:
@@ -17,8 +13,11 @@ else:
             break
         except IOError:
             print "Woa! Thats not a board."
-    BOARDSIZE = len(board[0])
+    BOARDSIZE = int((len(board[0])+1)/float(2))
 
+else:
+    BOARDSIZE = 14
+    board = boardUtils.buildBoard(BOARDSIZE)
 
 moves = {
 

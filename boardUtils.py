@@ -3,7 +3,7 @@ import numpy as np
 
 wall = "#"
 ground = " "
-spacer = ""
+spacer = " "
 marioTrail = "."
 toadTrail = " "
 
@@ -63,5 +63,3 @@ def readBoard(fileName):
 
         board.append(row[:-1]) # remove newline
     return board
-
-writeBoard(readBoard("blank.txt"))
