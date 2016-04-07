@@ -1,23 +1,38 @@
-import math, boardUtils
+import math, boardUtils, io
 from random import choice
 from time import sleep
 
+inputFlag = False
+
+if not inputFlag:
+
+    BOARDSIZE = 14
+    board = boardUtils.buildBoard(BOARDSIZE)
+
+else:
+    while True:
+        userBoard = raw_input("What board do you want to use?")
+        try:
+            board = boardUtils.readBoard(userBoard)
+            break
+        except IOError:
+            print "Woa! Thats not a board."
+    BOARDSIZE = len(board[0])
+
+
 moves = {
 
-'left': (-2,0),
-'right': (2,0),
-'up': (0,2),
-'down':(0,-2),
+'left': (-1,0),
+'right': (1,0),
+'up': (0,1),
+'down':(0,-1),
 'left and up': (-1,1),
 'right and up': (1,1),
 'left and down': (-1,-1),
 'right and down':(1,-1)
 
 }
-
-BOARDSIZE = 14
-board = boardUtils.buildBoard(BOARDSIZE)
-toadCount = 1
+toadCount = 4
 steps = 0
 def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
