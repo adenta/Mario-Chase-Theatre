@@ -2,7 +2,7 @@ import math, boardUtils
 from random import choice
 from time import sleep
 
-nextToadStep = {
+moves = {
 
 'left': (-2,0),
 'right': (2,0),
@@ -17,10 +17,8 @@ nextToadStep = {
 
 BOARDSIZE = 14
 board = boardUtils.buildBoard(BOARDSIZE)
-toadCount = 4
+toadCount = 1
 steps = 0
-marioMoves = [1,-1]
-toadMoves = nextToadStep.keys()
 def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
 
@@ -31,7 +29,7 @@ def makeToad(i):
     toad['y'] = BOARDSIZE
     toad['distanceToMario'] = float('inf')
     toad['previousDistance'] = 0
-    toad['direction'] = choice(toadMoves)
+    toad['direction'] = choice(moves.keys())
     return toad
 
 
@@ -44,9 +42,11 @@ while True:
 toads = [makeToad(i) for i in range(toadCount)]
 
 def turn():
-    board[mario[0]][mario[1]]=" "
-    dx = choice(marioMoves)
-    dy = choice(marioMoves)
+    board[mario[0]][mario[1]]=boardUtils.marioTrail
+    move =  moves[choice(moves.keys())]
+    dx = move[0]
+    dy = move[1]
+    print
     if not( board[mario[0] + dx][ mario[1] + dy]==boardUtils.wall):
         mario[0] += dx
         mario[1] += dy
@@ -56,10 +56,10 @@ def turn():
         toad['distanceToMario'] = dist(mario,[toad['x'],toad['y']])
 
         if toad['previousDistance'] < toad['distanceToMario']:
-            toad['direction'] = choice(toadMoves)
-        toadMove = nextToadStep[toad['direction']]
+            toad['direction'] = choice(moves.keys())
+        toadMove = moves[toad['direction']]
 
-        board[toad['x']][toad['y']]=" "
+        board[toad['x']][toad['y']]=boardUtils.toadTrail
         if not( board[toad['x'] + toadMove[0]][ toad['y'] + toadMove[1]]==boardUtils.wall):
             toad['x'] += toadMove[0]
             toad['y'] += toadMove[1]
@@ -82,7 +82,7 @@ def checkCapture():
 
 print "mario is at",mario
 while True:
-    sleep(.07)
+    sleep(.15)
     turn()
     steps += 1
 

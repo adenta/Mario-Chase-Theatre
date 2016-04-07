@@ -3,7 +3,10 @@ import numpy as np
 
 wall = "#"
 ground = " "
-spacer = "."
+spacer = " "
+marioTrail = "m"
+toadTrail = "t"
+
 def buildCircle(r):
     y,x = np.ogrid[-r: r+1, -r: r+1]
     mask = x**2+y**2 <= r**2-1
