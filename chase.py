@@ -3,21 +3,20 @@ from random import choice
 from time import sleep
 
 inputFlag = True
-
+defaultBoard = "blank.txt"
 if inputFlag:
 
     while True:
-        userBoard = raw_input("What board do you want to use?")
+        userBoard = raw_input("What board do you want to use? ") + ".txt"
         try:
             board = boardUtils.readBoard(userBoard)
             break
         except IOError:
             print "Woa! Thats not a board."
-    BOARDSIZE = int((len(board[0])+1)/float(2))
-
 else:
-    BOARDSIZE = 14
-    board = boardUtils.buildBoard(BOARDSIZE)
+    board = boardUtils.readBoard(defaultBoard)
+
+BOARDSIZE = int((len(board[0])+1)/float(2))
 
 moves = {
 
@@ -64,7 +63,7 @@ def turn():
     if not( board[mario[0] + dx][ mario[1] + dy]==boardUtils.wall):
         mario[0] += dx
         mario[1] += dy
-    board[mario[0]][mario[1]]="M"
+    board[mario[0]][mario[1]]=boardUtils.mario
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
         toad['distanceToMario'] = dist(mario,[toad['x'],toad['y']])
@@ -78,7 +77,7 @@ def turn():
             toad['x'] += toadMove[0]
             toad['y'] += toadMove[1]
 
-        board[toad['x']][toad['y']]="T"
+        board[toad['x']][toad['y']]=boardUtils.toad
 
         print "toad moved",toad['direction']
         print "toad",toad['id'],"is now at",[toad['x'],toad['y']],"and",toad['distanceToMario'],"away from mario,",mario,"\n"

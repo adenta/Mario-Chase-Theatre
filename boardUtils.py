@@ -1,6 +1,9 @@
 import io,math,random,time
 import numpy as np
 
+mario = "M"
+toad = "T"
+
 wall = "#"
 ground = " "
 spacer = " "
@@ -14,15 +17,6 @@ def buildCircle(r):
     mask = x**2+y**2 <= r**2-1
 
     return mask
-def drawCircle(circle):
-    for row in circle:
-        st = ""
-        for col in row:
-            if col and random.randint(0,100)>5 :
-                st+= " "
-            else:
-                st+= "#"
-        print st
 
 def buildBoard(n):
     circle = buildCircle(n);
@@ -30,7 +24,6 @@ def buildBoard(n):
 
     for row in circle:
         board.append([ground if cell else wall for cell in row])
-
     return board
 
 def drawBoard(board):
