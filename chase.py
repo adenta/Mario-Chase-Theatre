@@ -56,14 +56,46 @@ toads = [makeToad(i) for i in range(toadCount)]
 
 def turn():
     board[mario[0]][mario[1]]=boardUtils.marioTrail
-    move =  moves[choice(moves.keys())]
-    dx = move[0]
-    dy = move[1]
-    print
-    if not( board[mario[0] + dx][ mario[1] + dy]==boardUtils.wall):
-        mario[0] += dx
-        mario[1] += dy
+    #Mario AI
+    closestToad = 0
+    for toad in toads:
+        if dist(mario,[toad['x'],toad['y']]) > closestToad:
+            closestToad = toad
+    #print closestToad['x']
+    #print closestToad['y']
+    #print dist(mario,[closestToad['x'],closestToad['y']])
+    xdiff = mario[0]-closestToad['x']
+    ydiff = mario[1]-closestToad['y']
+    if abs(xdiff) < abs(ydiff):
+        if xdiff > 0:
+            dx = 1
+            dy = 0
+        else:
+            dx = -1
+            dy = 0
+    elif ydiff > xdiff:
+        if ydiff > 0:
+            dy = 1
+            dx = 0 
+        else:
+            dy = -1
+            dx = 0
+    else:
+        move =  moves[choice(moves.keys())]
+        dx = move[0]
+        dy = move[1]
+    while True:
+        if not( board[mario[0] + dx][ mario[1] + dy]==boardUtils.wall):
+            mario[0] += dx
+            mario[1] += dy
+            break
+        move =  moves[choice(moves.keys())]
+        dx = move[0]
+        dy = move[1]
+        
     board[mario[0]][mario[1]]=boardUtils.mario
+    
+    #Toad AI
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
         toad['distanceToMario'] = dist(mario,[toad['x'],toad['y']])
