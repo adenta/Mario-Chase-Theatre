@@ -1,4 +1,4 @@
 import chase
 
-for i in range(1000000):
-    print chase.trial(1,30,0)
+for i in range(10):
+    print chase.trial(1,150,0.02)
