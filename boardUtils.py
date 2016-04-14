@@ -1,4 +1,4 @@
-import io,math,random,time
+import io,math,random,time, json
 import numpy as np
 
 mario = "M"
@@ -56,3 +56,11 @@ def readBoard(fileName):
 
         board.append(row[:-1]) # remove newline
     return board
+def jsonBoard(board): # returns json strong of array of given board state.
+    walls = []
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j] is wall:
+                d = {'x':i,'y':j,'type':'wall'}
+                walls.append(d)
+    return walls

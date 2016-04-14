@@ -1,4 +1,4 @@
-import math, boardUtils, io, copy
+import math, boardUtils, io, copy, json, yaml, time
 from random import choice
 from time import sleep
 
@@ -46,10 +46,24 @@ def makeToad(i):
     toad['direction'] = choice(moves.keys())
     return toad
 
-def trial(toadCount, timer,delay):
+
+
+def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
     board = copy.deepcopy(initBoard)
     steps = 0
     mario = [0,0]
+    frames = []
+    currentTime = time.strftime("%Y%m%d-%H%M%S")
+
+    match = {}
+    match['id'] = currentTime
+    match['timer'] = timer
+    match['toads'] = toadCount
+    match['marioBehavior'] = marioBehavior
+    match['toadBehavior'] = toadBehavior
+    match['map'] = boardUtils.jsonBoard(initBoard)
+    frames = []
+
 
     while True:
         mario = [choice(range(BOARDSIZE)),choice(range(BOARDSIZE))]
@@ -62,6 +76,24 @@ def trial(toadCount, timer,delay):
         minutes = str(remaining // 60)
         seconds = str(remaining % 60)
         return minutes + ":" + seconds + "."
+
+    def makeActor(x,y,typ):
+        actor = {}
+        actor['x'] = x
+        actor['y'] = y
+        actor['type'] = typ
+
+        return  actor
+    def makeFrame(mario,toads):
+        frame = {}
+        points = []
+        frame['step'] = steps
+        points.append(makeActor(mario[0],mario[1],"mario"))
+        for toad in toads:
+            points.append(makeActor(toad['x'],toad['y'],"toad"))
+        frame['points'] = points
+        return frame
+
 
 
     def turn():
@@ -126,6 +158,7 @@ def trial(toadCount, timer,delay):
         if delay is not 0:
             print "Time:",drawTime()
             boardUtils.drawBoard(board)
+        return makeFrame(mario,toads)
 
 
     def checkCapture():
@@ -136,8 +169,9 @@ def trial(toadCount, timer,delay):
 
 
     while True:
+
         sleep(delay)
-        turn()
+        frames.append(turn())
         steps += 1
 
         if checkCapture():
@@ -151,4 +185,10 @@ def trial(toadCount, timer,delay):
                 print "Mario wins!"
             isCaptured = False
             break
+    match['frames'] = frames
+
+    jsonOut = open("./data/round-" + currentTime + ".json",'w')
+    jsonOut.write(json.dumps(match,indent=4))
+
+
     return (isCaptured,steps)
