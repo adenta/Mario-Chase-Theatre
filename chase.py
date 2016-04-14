@@ -115,7 +115,7 @@ def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
             else:
                 dx = -1
                 dy = 0
-        elif ydiff > xdiff:
+        elif abs(ydiff) > abs(xdiff):
             if ydiff > 0:
                 dy = 1
                 dx = 0
