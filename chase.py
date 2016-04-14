@@ -1,4 +1,4 @@
-import math, boardUtils, io
+import math, boardUtils, io, copy
 from random import choice
 from time import sleep
 
@@ -15,6 +15,8 @@ if inputFlag:
             print "Woa! Thats not a board."
 else:
     board = boardUtils.readBoard(defaultBoard)
+
+initBoard = copy.deepcopy(board)
 
 BOARDSIZE = int((len(board[0])+1)/float(2))
 
@@ -45,6 +47,7 @@ def makeToad(i):
     return toad
 
 def trial(toadCount, timer,delay):
+    board = copy.deepcopy(initBoard)
     steps = 0
     mario = [0,0]
 
@@ -149,6 +152,3 @@ def trial(toadCount, timer,delay):
             isCaptured = False
             break
     return (isCaptured,steps)
-
-for i in range(100):
-    print trial(4,15,.05)
