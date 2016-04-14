@@ -32,8 +32,16 @@ moves = {
 }
 toadCount = 4
 steps = 0
+timer = 150
+
 def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
+
+def drawTime():
+    remaining = timer - steps
+    minutes = str(remaining // 60)
+    seconds = str(remaining % 60)
+    return minutes + ":" + seconds + "."
 
 def makeToad(i):
     toad = {}
@@ -46,7 +54,7 @@ def makeToad(i):
     return toad
 
 
-
+steps = 0
 mario = [0,0]
 while True:
     mario = [choice(range(BOARDSIZE)),choice(range(BOARDSIZE))]
@@ -76,7 +84,7 @@ def turn():
     elif ydiff > xdiff:
         if ydiff > 0:
             dy = 1
-            dx = 0 
+            dx = 0
         else:
             dy = -1
             dx = 0
@@ -92,9 +100,9 @@ def turn():
         move =  moves[choice(moves.keys())]
         dx = move[0]
         dy = move[1]
-        
+
     board[mario[0]][mario[1]]=boardUtils.mario
-    
+
     #Toad AI
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
@@ -113,8 +121,9 @@ def turn():
 
         print "toad moved",toad['direction']
         print "toad",toad['id'],"is now at",[toad['x'],toad['y']],"and",toad['distanceToMario'],"away from mario,",mario,"\n"
-    boardUtils.drawBoard(board)
 
+    print "Time:",drawTime()
+    boardUtils.drawBoard(board)
 
 
 def checkCapture():
@@ -132,8 +141,9 @@ while True:
     steps += 1
 
     if checkCapture():
+        print "a toad found mario in",steps,"turns."
         break;
 
-
-
-print "a toad found mario in",steps,"turns."
+    if steps >= timer:
+        print "Mario wins!"
+        break
