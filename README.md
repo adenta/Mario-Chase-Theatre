@@ -16,3 +16,4 @@ Mario Chase solver
 # Experimental round viewer
 
 Check out [this](https://jsfiddle.net/adenta/jw4ehsws/2/) link to see some progress on getting a graphic output for saved games.
+Tutorial can be found [here](http://alignedleft.com/projects/2014/easy-as-pi/)
