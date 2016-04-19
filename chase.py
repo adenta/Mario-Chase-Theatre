@@ -9,7 +9,7 @@ if inputFlag:
 
     while True:
         userBoard = raw_input("What board do you want to use? ") + ".txt"
-        boardName = userBoard[:-3]
+        boardName = userBoard[:-4]
         try:
             board = boardUtils.readBoard(userBoard)
             break
