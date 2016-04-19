@@ -1,11 +1,15 @@
 var express = require("express");
 var app = express();
 var fs = require("fs");
+var minify = require('express-minify');
+
 
 
 //Middleware
 var port = process.env.PORT || 3000;
 var strings = require('./strings.json');
+
+app.use(minify());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/data'));
 
