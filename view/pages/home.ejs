@@ -1,28 +1,21 @@
 <% include ../fragments/head %>
 
-<body>
+  <body>
 
-  <header>
-    <% include ../fragments/header %>
-  </header>
+    <header>
+      <% include ../fragments/header %>
+    </header>
 
-  <main class="row container">
-    <h2>I am the <span id="type">...</span></h2>
-    <div class="col s12">
-    <button class="btn col s4" onclick="changeType(this)" >Male Vocals</button>
-    <button class="btn col s4"  onclick="changeType(this)" >Female Vocals</button>
+    <main class="row container">
+      <h2>Select which round you want to watch</h2>
+      <ul class = "collection">
+        <% for(var i=0; i<trials.length; i++) {%>
+          <li class="collection-item">
+            <a href="/theatre?trial=<%= trials[i] %>"> <%= trials[i] %></a>
+          </li>
+          <% } %>
+      </ul>
 
-    <button class="btn col s4" id="bassist" onclick="changeType(this)">Bassist</button>
-    <button class="btn col s4" id="guitarist" onclick="changeType(this)">Guitarist</button>
-  </div>
-    <h2>I would like you to...</h2>
-    <p  id="range" class="range-field">
-    <input type="range" id="volume" min="-100" max="100" step="1" style="width:100%">
-  </p>
-    <p class="left">Turn my volume down</p>
-    <p class="right">Turn my volume up</p>
-    <div style="display:none; visibility:hidden; "id='out'></div>
+    </main>
 
-  </main>
-
-  <% include ../fragments/footer %>
+    <% include ../fragments/footer %>
