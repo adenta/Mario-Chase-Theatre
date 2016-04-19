@@ -4,10 +4,12 @@ from time import sleep
 
 inputFlag = True
 defaultBoard = "blank.txt"
+boardName = None
 if inputFlag:
 
     while True:
         userBoard = raw_input("What board do you want to use? ") + ".txt"
+        boardName = userBoard[:-3]
         try:
             board = boardUtils.readBoard(userBoard)
             break
@@ -186,8 +188,7 @@ def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
             isCaptured = False
             break
     match['frames'] = frames
-
-    jsonOut = open("./data/round-" + currentTime + ".json",'w')
+    jsonOut = open("./data/" + boardName + "-" + currentTime + ".json",'w')
     jsonOut.write(json.dumps(match,indent=4))
 
 
