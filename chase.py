@@ -102,11 +102,11 @@ def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
         board[mario[0]][mario[1]]=boardUtils.marioTrail
         #Mario AI
 
-        newMario = behavior.mario2(mario,toads,board)
+        newMario = behavior.mario(mario,toads,board,marioBehavior)
         board[newMario[0]][newMario[1]]=boardUtils.mario
 
         #Toad AI
-        newToads = behavior.toad2(mario,toads,board)
+        newToads = behavior.toad(mario,toads,board,toadBehavior)
         for toad in newToads:
             board[toad['x']][toad['y']]=boardUtils.toad
             if delay is not 0:
@@ -143,7 +143,7 @@ def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
             isCaptured = False
             break
     match['frames'] = frames
-    jsonOut = open("./data/" + boardName + "-" + currentTime + ".json",'w')
+    jsonOut = open("./data/" + boardName + "-M:" + str(marioBehavior) + "_T:" + str(toadBehavior) + "-" + currentTime + ".json",'w')
     jsonOut.write(json.dumps(match,indent=4))
 
 

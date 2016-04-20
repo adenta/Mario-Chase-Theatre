@@ -13,10 +13,11 @@ moves = {
 'right and down':(1,-1)
 
 }
-
 def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
 
+def mario1(mario,toads,board):
+    return mario
 
 def mario2(mario,toads,board):
             closestToad = 0
@@ -55,6 +56,12 @@ def mario2(mario,toads,board):
 
             return mario
 
+def mario3(mario,toads,board):
+    return mario
+
+def toad1(mario,toads,board):
+    return toads
+
 def toad2(mario,toads,board):
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
@@ -70,3 +77,17 @@ def toad2(mario,toads,board):
             toad['y'] += toadMove[1]
 
     return toads
+
+def toad3(mario,toads,board):
+    return toads
+
+marioMap = {1:mario1,2:mario2,3:mario3}
+toadMap = {1: toad1,2:toad2,3:toad3}
+
+def mario(mario,toads,board,behavior):
+    f = marioMap[behavior](mario,toads,board)
+    return f
+
+def toad(mario,toads,board,behavior):
+    f = toadMap[behavior](mario,toads,board)
+    return f
