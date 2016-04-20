@@ -143,7 +143,7 @@ def trial(toadCount, timer,delay,marioBehavior,toadBehavior):
             isCaptured = False
             break
     match['frames'] = frames
-    jsonOut = open("./data/" + boardName + "-M:" + str(marioBehavior) + "_T:" + str(toadBehavior) + "-" + currentTime + ".json",'w')
+    jsonOut = open("./data/" + boardName + "_M-" + str(marioBehavior) + "_T-" + str(toadBehavior) + "-" + currentTime + ".json",'w')
     jsonOut.write(json.dumps(match,indent=4))
 
 
