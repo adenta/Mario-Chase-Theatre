@@ -1,5 +1,7 @@
 import boardUtils, math
-from random import choice
+from random import choice,randrange
+
+los = 5
 
 moves = {
 
@@ -63,6 +65,7 @@ def toad1(mario,toads,board):
     return toads
 
 def toad2(mario,toads,board):
+
     for toad in toads:
         toad['previousDistance'] = toad['distanceToMario']
         toad['distanceToMario'] = dist(mario,[toad['x'],toad['y']])
@@ -79,6 +82,52 @@ def toad2(mario,toads,board):
     return toads
 
 def toad3(mario,toads,board):
+#Toad AI
+    for toad in toads:
+        closestToad = 0
+    for toad in toads:
+        if dist(mario,[toad['x'],toad['y']]) > closestToad:
+            closestToad = toad
+
+    for toad in toads:
+        approxclose = closestToad['x']+randrange(-3,3),closestToad['y']+randrange(-3,3)
+        possibleMoves = []
+        toad['previousDistance'] = toad['distanceToMario']
+        toad['distanceToMario'] = dist(mario,[toad['x'],toad['y']])
+        #Start new collaboration code
+        if toad['distanceToMario'] > los:
+            if toad['id'] != closestToad['id']:
+
+                for move in moves.keys():
+
+                    x,y = moves[move][0],moves[move][1]
+
+                    if dist([approxclose[0],approxclose[1]], [toad['x'],toad['y']]) >= dist([approxclose[0], approxclose[1]], [x,y]):
+                        possibleMoves.append(move)
+                try:
+                    toad['direction'] = choice(possibleMoves)
+                except:
+                    toad['direction'] = choice(moves.keys())
+            else:
+                if toad['previousDistance'] < toad['distanceToMario']:
+                    toad['direction'] = choice(moves.keys())
+        elif toad['distanceToMario'] <= los:
+
+            for move in moves.keys():
+                x,y = moves[move][0], moves[move][1]
+                if dist(mario, [x,y]) <= toad['previousDistance']:
+                    possibleMoves.append(move)
+            try:
+                toad['direction'] = choice(possibleMoves)
+            except:
+                toad['direction'] = choice(moves.keys())
+            #End new Collaboration code
+        toadMove = moves[toad['direction']]
+
+        board[toad['x']][toad['y']]=boardUtils.toadTrail
+        if not( board[toad['x'] + toadMove[0]][ toad['y'] + toadMove[1]]==boardUtils.wall):
+            toad['x'] += toadMove[0]
+            toad['y'] += toadMove[1]
     return toads
 
 marioMap = {1:mario1,2:mario2,3:mario3}
