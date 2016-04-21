@@ -22,18 +22,7 @@ initBoard = copy.deepcopy(board)
 
 BOARDSIZE = int((len(board[0])+1)/float(2))
 
-moves = {
 
-'left': (-1,0),
-'right': (1,0),
-'up': (0,1),
-'down':(0,-1),
-'left and up': (-1,1),
-'right and up': (1,1),
-'left and down': (-1,-1),
-'right and down':(1,-1)
-
-}
 
 def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
@@ -45,7 +34,7 @@ def makeToad(i):
     toad['y'] = BOARDSIZE
     toad['distanceToMario'] = float('inf')
     toad['previousDistance'] = 0
-    toad['direction'] = choice(moves.keys())
+    toad['direction'] = choice(behavior.moves.keys())
     return toad
 
 
