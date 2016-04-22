@@ -29,15 +29,14 @@ var dataset = []; // Initialize empty array
 function visualization() {
   for (var i = 0; i < trial.frames[cursor].points.length; i++) {
     var frame = trial.frames[cursor].points[i];
-    console.log(frame);
     dataset.push(frame); // Add new number to array
   }
   cursor++;
   buildWall();
 
   // Setup settings for graphic
-  var canvas_width = 500;
-  var canvas_height = 500;
+  var canvas_width = 600;
+  var canvas_height = 600;
   var padding = 10; // for chart edges
 
   // Create scale functions

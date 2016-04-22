@@ -28,10 +28,12 @@ app.get('/', function(req, res) {
 });
 
 app.get('/theatre', function(req, res) {
-  console.log(req.query);
-  res.render(__dirname + '/view/pages/theatre.ejs', {
-    strings: strings,
-    trial: req.query.trial
+  fs.readFile(__dirname + '/data/' + req.query.trial,function(err,file){
+    var trialData = JSON.parse(file);
+    res.render(__dirname + '/view/pages/theatre.ejs', {
+      strings: strings,
+      trial: {"fileName":req.query.trial,"metadata":trialData}
+    });
   });
 });
 
