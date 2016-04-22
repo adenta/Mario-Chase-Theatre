@@ -74,7 +74,7 @@ function visualization() {
       return colors[d.type].fill;
     }).attr("stroke", function(d) {
       return colors[d.type].stroke;
-    }).attr("stroke-width", 2)
+    }).attr("stroke-width", 3)
     .attr("r", 7); // radius
 
   // On click, update with new data
