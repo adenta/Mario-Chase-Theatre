@@ -62,7 +62,8 @@ def mario3(mario,toads,board):
     return mario
 
 def toad1(mario,toads,board):
-    return toads
+    for toad in toads:
+        toad['direction'] = choice(moves.keys())
 
 def toad2(mario,toads,board):
 
@@ -83,8 +84,7 @@ def toad2(mario,toads,board):
 
 def toad3(mario,toads,board):
 #Toad AI
-    for toad in toads:
-        closestToad = 0
+    closestToad = toads[0]
     for toad in toads:
         if dist(mario,[toad['x'],toad['y']]) > closestToad:
             closestToad = toad
@@ -102,7 +102,7 @@ def toad3(mario,toads,board):
 
                     x,y = moves[move][0],moves[move][1]
 
-                    if dist([approxclose[0],approxclose[1]], [toad['x'],toad['y']]) >= dist([approxclose[0], approxclose[1]], [x,y]):
+                    if dist([approxclose[0],approxclose[1]], [toad['x'],toad['y']]) >= dist([approxclose[0], approxclose[1]], [toad['x']+x,toad['y']+y]):
                         possibleMoves.append(move)
                 try:
                     toad['direction'] = choice(possibleMoves)
