@@ -1,4 +1,11 @@
 var trial;
+var cursor = 0
+var dataset = []; // Initialize empty array
+
+var canvas_width = 600;
+var canvas_height = 600;
+var padding = 10; // for chart edges
+var actorRadius = 5;
 
 var colors = {
   "mario":{
@@ -10,35 +17,22 @@ var colors = {
     "stroke":"red"
   },
   "wall":{
-    "fill":"blank",
-    "stroke":"blank"
+    "fill":"black",
+    "stroke":"black"
   }
 
 }
-
-function buildWall() {
-  for (var i = 0; i < trial.map.length; i++) {
-
-    dataset.push(trial.map[i]);
-  }
-}
-var cursor = 0
-var dataset = []; // Initialize empty array
 
 // Setup data
 function visualization() {
-  for (var i = 0; i < trial.frames[cursor].points.length; i++) {
-    var frame = trial.frames[cursor].points[i];
-    dataset.push(frame); // Add new number to array
-  }
+  trial.frames[cursor].points.forEach(function(ele,i){
+    dataset.push(ele);
+  });
   cursor++;
-  buildWall();
-
-  // Setup settings for graphic
-  var canvas_width = 600;
-  var canvas_height = 600;
-  var padding = 10; // for chart edges
-
+  trial.map.forEach(function(ele,i){
+    dataset.push(ele);
+  });
+  
   // Create scale functions
   var xScale = d3.scale.linear() // xScale is width of graphic
     .domain([0, d3.max(dataset, function(d) {
@@ -52,10 +46,8 @@ function visualization() {
     })])
     .range([canvas_height - padding, padding]); // remember y starts on top going down so we flip
 
-  // Define X axis
-
   // Create SVG element
-  var svg = d3.select("h3") // This is where we put our vis
+  var svg = d3.select("#graphic") // This is where we put our vis
     .append("svg")
     .attr("width", canvas_width)
     .attr("height", canvas_height)
@@ -75,19 +67,14 @@ function visualization() {
     }).attr("stroke", function(d) {
       return colors[d.type].stroke;
     }).attr("stroke-width", 3)
-    .attr("r", 7); // radius
-
-  // On click, update with new data
+    .attr("r", actorRadius * (7/5)); // radius
   setInterval(function() {
     var numValues = dataset.length; // Get original dataset's length
     dataset = []; // Initialize empty array
-    for (var i = 0; i < trial.frames[cursor].points.length; i++) {
-      var frame = trial.frames[cursor].points[i];
-      dataset.push(frame); // Add new number to array
-    }
+    trial.frames[cursor].points.forEach(function(ele,i){
+      dataset.push(ele);
+    });
     cursor++;
-
-
 
     // Update circles
     svg.selectAll("circle")
@@ -96,23 +83,19 @@ function visualization() {
       .duration(120) // Length of animation
       .each("start", function() { // Start animation
         d3.select(this) // 'this' means the current element
-          .attr("r", 5); // Change size
+          .attr("r", actorRadius); // Change size
       })
 
     .ease("linear") // Transition easing - default 'variable' (i.e. has acceleration), also: 'circle', 'elastic', 'bounce', 'linear'
       .attr("cx", function(d) {
-        return xScale(d.x); // Circle's X
-      })
+        return xScale(d.x);})
       .attr("cy", function(d) {
-        return yScale(d.y); // Circle's Y
-      })
+        return yScale(d.y);})
       .each("end", function() { // End animation
         d3.select(this) // 'this' means the current element
           .transition()
           .duration(100)
       });
-
-
   }, 100);
 }
 
