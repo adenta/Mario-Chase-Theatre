@@ -14,7 +14,7 @@ times= []
 #Trialrunner
 for i in range(trials):
     try:
-        res = chase.trial(4,25,0,marioAI,toadAI)
+        res = chase.trial(4,150,0,marioAI,toadAI)
     except:
         res = [False, 150]
     times.append(res[1])
@@ -26,4 +26,4 @@ print "Mario AI", marioAI
 print "Toad AI", toadAI
 print trials, "Trials:"
 print "Mean Game Time:", numpy.mean(times)
-print "Toad Win %",  (float(toad_win_count)/float(trials))*100 
+print "Toad Win %",  (float(toad_win_count)/float(trials))*100
