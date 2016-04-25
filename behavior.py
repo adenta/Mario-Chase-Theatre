@@ -19,6 +19,7 @@ def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
 
 def mario1(mario,toads,board):
+    mario = choice(moves.keys())
     return mario
 
 def mario2(mario,toads,board):
