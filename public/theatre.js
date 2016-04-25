@@ -17,8 +17,8 @@ var colors = {
     "stroke": "red"
   },
   "wall": {
-    "fill": "black",
-    "stroke": "black"
+    "fill": "#607d8b",
+    "stroke": "#607d8b"
   }
 
 }
