@@ -6,6 +6,6 @@ body {
 main {
   flex: 1 0 auto;
 }
-#trialInfo {
+#trialInfo, #graphic {
   margin-top: 20px;
 }
