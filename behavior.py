@@ -116,7 +116,7 @@ def toad3(mario,toads,board):
 
             for move in moves.keys():
                 x,y = moves[move][0], moves[move][1]
-                if dist(mario, [x,y]) <= toad['previousDistance']:
+                if dist(mario, [toad['x']+x,toad['y']+y]) <= toad['previousDistance']:
                     possibleMoves.append(move)
             try:
                 toad['direction'] = choice(possibleMoves)
