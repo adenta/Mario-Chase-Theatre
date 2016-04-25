@@ -8,31 +8,31 @@ var padding = 10; // for chart edges
 var actorRadius = 5;
 
 var colors = {
-  "mario":{
-    "fill":"red",
-    "stroke":"blue"
+  "mario": {
+    "fill": "red",
+    "stroke": "blue"
   },
-  "toad":{
-    "fill":"white",
-    "stroke":"red"
+  "toad": {
+    "fill": "white",
+    "stroke": "red"
   },
-  "wall":{
-    "fill":"black",
-    "stroke":"black"
+  "wall": {
+    "fill": "black",
+    "stroke": "black"
   }
 
 }
 
 // Setup data
 function visualization() {
-  trial.frames[cursor].points.forEach(function(ele,i){
+  trial.frames[cursor].points.forEach(function(ele, i) {
     dataset.push(ele);
   });
   cursor++;
-  trial.map.forEach(function(ele,i){
+  trial.map.forEach(function(ele, i) {
     dataset.push(ele);
   });
-  
+
   // Create scale functions
   var xScale = d3.scale.linear() // xScale is width of graphic
     .domain([0, d3.max(dataset, function(d) {
@@ -67,11 +67,11 @@ function visualization() {
     }).attr("stroke", function(d) {
       return colors[d.type].stroke;
     }).attr("stroke-width", 3)
-    .attr("r", actorRadius * (7/5)); // radius
+    .attr("r", actorRadius * (7 / 5)); // radius
   setInterval(function() {
     var numValues = dataset.length; // Get original dataset's length
     dataset = []; // Initialize empty array
-    trial.frames[cursor].points.forEach(function(ele,i){
+    trial.frames[cursor].points.forEach(function(ele, i) {
       dataset.push(ele);
     });
     cursor++;
@@ -88,9 +88,11 @@ function visualization() {
 
     .ease("linear") // Transition easing - default 'variable' (i.e. has acceleration), also: 'circle', 'elastic', 'bounce', 'linear'
       .attr("cx", function(d) {
-        return xScale(d.x);})
+        return xScale(d.x);
+      })
       .attr("cy", function(d) {
-        return yScale(d.y);})
+        return yScale(d.y);
+      })
       .each("end", function() { // End animation
         d3.select(this) // 'this' means the current element
           .transition()
