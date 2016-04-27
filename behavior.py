@@ -1,5 +1,5 @@
-import boardUtils, math
-from random import choice,randrange
+import boardUtils, math, copy
+from random import choice,randrange, shuffle
 
 los = 5
 
@@ -19,7 +19,13 @@ def dist(p1, p2):
     return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
 
 def mario1(mario,toads,board):
-    mario = choice(moves.keys())
+    while True:
+        move = choice(moves.values())
+        
+        if not( board[mario[0] + move[0]] [mario[1] + move[1]]==boardUtils.wall):
+            mario[0] += move[0]
+            mario[1] += move[1]
+            break
     return mario
 
 def mario2(mario,toads,board):
@@ -60,7 +66,26 @@ def mario2(mario,toads,board):
             return mario
 
 def mario3(mario,toads,board):
+
+    randomizedMoves = moves.values()
+    #print randomizedMoves
+    for move in randomizedMoves:
+        #print move[0]
+        #print move[1]
+        if not( board[mario[0] + move[0]] [mario[1] + move[1]]==boardUtils.wall):
+            #print "Not Wall"
+            for toad in toads:
+                prevDist = dist([mario[0] + move[0], mario[1] + move[1]], [toad['x'],toad['y']])
+                newDist = dist(mario,[toad['x'],toad['y']])
+                if newDist < prevDist  :
+
+                    mario[0] += move[0]
+                    mario[1] += move[1]
+                    return mario
     return mario
+
+
+
 
 def toad1(mario,toads,board):
     for toad in toads:

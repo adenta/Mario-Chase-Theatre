@@ -1,8 +1,8 @@
 import chase, numpy
 
 #Inputs
-trials = 500
-marioAI = 2
+trials = 1000
+marioAI = 3
 toadAI = 3
 #End Inputs
 
@@ -13,10 +13,8 @@ times= []
 
 #Trialrunner
 for i in range(trials):
-    try:
-        res = chase.trial(4,150,0,marioAI,toadAI)
-    except:
-        res = [False, 150]
+
+    res = chase.trial(4,150,0,marioAI,toadAI)
     times.append(res[1])
     if res[0]:
         toad_win_count +=1
