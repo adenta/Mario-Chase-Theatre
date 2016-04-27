@@ -89,7 +89,9 @@ def mario3(mario,toads,board):
 
 def toad1(mario,toads,board):
     for toad in toads:
-        toad['direction'] = choice(moves.keys())
+        move = choice(moves.values())
+        toad['x'] = move[0]
+        toad['y'] = move[1]
 
 def toad2(mario,toads,board):
 
