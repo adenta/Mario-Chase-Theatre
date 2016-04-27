@@ -3,7 +3,7 @@ import chase, numpy
 #Inputs
 trials = 500
 marioAI = 3
-toadAI = 3
+toadAI = 2
 #End Inputs
 
 #Scorekeeping variables
