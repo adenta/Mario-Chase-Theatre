@@ -27,6 +27,17 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/analysis', function(req, res) {
+  fs.readdir("./public/images/slides", function(err, files) {
+    if(err) console.log(err);
+
+    res.render(__dirname + '/view/pages/analysis.ejs', {
+      strings: strings,
+      slides: files
+    });
+  });
+});
+
 app.get('/theatre', function(req, res) {
   fs.readFile(__dirname + '/data/' + req.query.trial,function(err,file){
     var trialData = JSON.parse(file);
