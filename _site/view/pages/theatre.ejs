@@ -1,0 +1,36 @@
+<% include ../fragments/head %>
+
+  <body>
+
+    <header>
+      <% include ../fragments/header %>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+      <script type="text/javascript" src="/theatre.js"></script>
+    </header>
+    <!--Metadata indicating where to fetch the proper map file.
+        A better approch would be to store this in the head name property, or pass the data in manually.
+        That approch would take refactoring.
+    -->
+    <span id = "trial" style="display:none; visibility:hidden;"><%= trial.fileName %></span>
+
+    <main class="row container">
+      <div class="col s12 m8">
+        <div id="graphic">
+        </div>
+    </div>
+    <div class="col s12 m4">
+        <ul class='collection ' id ="trialInfo">
+        <li class="collection-item with-header white-text <%= strings.colors.primary.color %>"><h2>Round Metadata</h2></li>
+        <li class="collection-item white-text <%= strings.colors.primary.color %> flow-text ">
+          Mario Algorithm: <b class="right"><%= trial.metadata.marioBehavior %></b></li>
+        <li class="collection-item white-text <%= strings.colors.primary.color %> flow-text">
+          Toad Algorithm: <b  class="right"><%= trial.metadata.toadBehavior %></b></li>
+        <li class="collection-item white-text <%= strings.colors.primary.color %> flow-text">
+          Toad Count: <b  class="right"><%= trial.metadata.toads %></b></li>
+        <li class="collection-item white-text <%= strings.colors.primary.color %> flow-text">
+          Length (seconds): <b  class="right"><%= trial.metadata.timer %></b></li>
+      </ul>
+    </div>
+    </main>
+
+    <% include ../fragments/footer %>

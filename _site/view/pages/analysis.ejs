@@ -1,0 +1,22 @@
+<% include ../fragments/head %>
+
+  <body>
+
+    <header>
+      <% include ../fragments/header %>
+    </header>
+
+    <main class="row container">
+      <h2>Analysis</h2>
+      <div class = "col s12">
+        <% for(var i=0; i<slides.length; i++) {%>
+          <div class="card-panel">
+            <img class="responsive-img" src="/images/slides/<%= slides[i] %>">
+            <p></p>
+          </div>
+          <% } %>
+      </div>
+
+    </main>
+
+    <% include ../fragments/footer %>

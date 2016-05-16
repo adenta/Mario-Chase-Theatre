@@ -1,0 +1,24 @@
+{
+  "name": "mario-chase-theatre",
+  "version": "1.0.0",
+  "description": "node.js impl for viewing rounds of mario chase.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.iu.edu:adenta/marioChase.git"
+  },
+  "author": "andrew denta",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-minify": "^0.2.0"
+  },
+  "engines": {
+    "node": "5.1.0"
+  }
+}
