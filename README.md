@@ -1,18 +1,5 @@
-# marioChase
-Mario Chase solver
+# Mario Chase Theatre
 
-# description
-## important structures
-
-**Mario:** mario is represented by a dictionary, containing a key 'pos' which maps to a tuple, representing x and y coordinates.
-
-**Toad:** each toad is represented by a dictionary, containing a key 'pos' which maps to a tuple, representing x and y coordinates.
-
-**Toads:** toads is a list of toads
-
-**players:** players is a dictionary with keys 'mario' and 'toads'. both of these structures are referenced above.
-
-
-# View Online
+More info available at this [blog](http://denta.co/mario-chase) post.
 
 Project hosted on [heroku](http://mario-chase-theatre.herokuapp.com).
