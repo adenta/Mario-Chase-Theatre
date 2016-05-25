@@ -1,0 +1,22 @@
+Final Report
+Mario Chase
+Lee Hiler, Adam Peters, Andrew Denta
+
+The Game:
+This semester we evaluated and created a coding environment in which to test various algorithms for the game Mario Chase, which can be played on the WiiU. The rules are simple, there are Toads, which know how far away they are from the Mario but not in which direction, there is a Mario, which knows the exact location of all the Toads, and a timer which designates a time that Mario must survive. There are various maps on which the game is played.
+What we did:
+The coding aspect involved creating multiple evasion and chase algorithms, which was done in Python. The game is then ran, and a Json file is outputted, which is ran on our online environment, which can be found at https://mario-chase-theatre.herokuapp.com/. 
+The algorithms:
+There are three toad algorithms:
+Toad1: Random movement
+Toad2: Move towards Mario, if the distance is decreasing keep going, otherwise choose a random direction.
+Toad3: Move towards the closest toad’s approximate direction, then chase Mario one Mario is within a line of sight. 
+There are three Mario algorithms:
+Mario1: Random movement
+Mario2: Stay away from the closest Toad
+Mario3: Find a path to a safe location on the map while evading Toads
+Algorithm Analysis:
+Mario 2 seemed to do exceptionally well for such a simple algorithm, and Mario 3 preformed slightly better. The toad algorithms created a puzzling output, the far more advanced Toad3 did not preform as well as Toad2 by a measurable margin. When analyzing this we can only theorize that since Toad3 bunches the toads up this is not ideal, while Toad2 simply meanders around until they find a direction to catch Mario. 
+On maps with few obstacles Mario does not fare well. With obstacles the toads have less of an advantage, but the toads still win by a majority.   
+Reflection:
+This project helped to solidify what we learned in this class. Rather than creating a tree all of the possible paths, the algorithms create a decision hierarchy that resembles a tree through a series of ifs. Overall this project helped us to put the concept of creating a computer program to play a game in more concrete terms. Being able to play different algorithms against each other has helped us to put the concepts of what computer thinking really is, and can be used in future coding projects in dynamic programming and other projects.
